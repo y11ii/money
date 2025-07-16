@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薪球崛起 - 可视化你的每一分血汗钱</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 首次访问配置界面 -->
+    <div id="setup-container" class="setup-container">
+        <h1>欢迎使用 薪球崛起</h1>
+        <p>请完成以下设置，开始你的"可视化赚钱"之旅！</p>
+        <form id="setup-form">
+            <div class="form-group">
+                <label for="salary-type">薪资类型:</label>
+                <select id="salary-type" required>
+                    <option value="hourly">时薪</option>
+                    <option value="daily">日薪</option>
+                    <option value="monthly">月薪</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="salary-amount">薪资金额:</label>
+                <input type="number" id="salary-amount" min="0" step="0.01" required placeholder="例如: 100">
+            </div>
+            <div class="form-group">
+                <label for="currency">货币符号:</label>
+                <select id="currency" required>
+                    <option value="¥">人民币 (¥)</option>
+                    <option value="$">美元 ($)</option>
+                    <option value="€">欧元 (€)</option>
+                    <option value="£">英镑 (£)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="work-start">上班时间:</label>
+                <input type="time" id="work-start" value="09:00" required>
+            </div>
+            <div class="form-group">
+                <label for="work-end">下班时间:</label>
+                <input type="time" id="work-end" value="18:00" required>
+            </div>
+            <div class="form-group">
+                <label for="lunch-start">午休开始时间 (可选):</label>
+                <input type="time" id="lunch-start" value="12:00">
+            </div>
+            <div class="form-group">
+                <label for="lunch-end">午休结束时间 (可选):</label>
+                <input type="time" id="lunch-end" value="13:00">
+            </div>
+            <button type="submit" class="btn-primary">开始赚钱!</button>
+        </form>
+    </div>
+
+    <!-- 主应用界面 -->
+    <div id="app-container" class="app-container hidden">
+        <!-- 顶部信息栏 -->
+        <div class="info-bar">
+            <div class="info-item">
+                <span class="info-label">今日目标:</span>
+                <span id="daily-target" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">已工作时长:</span>
+                <span id="work-duration" class="info-value">00:00:00</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">距离下班:</span>
+                <span id="time-until-end" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">每秒赚取:</span>
+                <span id="per-second" class="info-value"></span>
+            </div>
+        </div>
+
+        <!-- 主动画区域 -->
+        <div class="animation-container">
+            <canvas id="money-animation"></canvas>
+            <div id="current-amount" class="current-amount"></div>
+        </div>
+
+        <!-- 控制按钮 -->
+        <div class="control-panel">
+            <button id="theme-btn" class="control-btn">🌓 切换主题</button>
+            <button id="settings-btn" class="control-btn">⚙️ 设置</button>
+            <button id="boss-key-btn" class="control-btn boss-key">👔 老板键</button>
+        </div>
+    </div>
+
+    <!-- 老板模式界面 -->
+    <div id="boss-mode" class="boss-mode hidden">
+        <div class="excel-simulator">
+            <div class="excel-header">
+                <div class="excel-title">项目进度跟踪表.xlsx</div>
+                <div class="excel-buttons">
+                    <span class="excel-btn">□</span>
+                    <span class="excel-btn">—</span>
+                    <span class="excel-btn">✕</span>
+                </div>
+            </div>
+            <div class="excel-content">
+                <!-- 模拟Excel表格内容 -->
+                <table class="fake-excel">
+                    <thead>
+                        <tr>
+                            <th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>任务名称</td><td>负责人</td><td>开始日期</td><td>截止日期</td><td>状态</td><td>进度</td></tr>
+                        <tr><td>2</td><td>需求分析</td><td>张三</td><td>2023-06-01</td><td>2023-06-05</td><td>已完成</td><td>100%</td></tr>
+                        <tr><td>3</td><td>系统设计</td><td>李四</td><td>2023-06-06</td><td>2023-06-15</td><td>进行中</td><td>75%</td></tr>
+                        <tr><td>4</td><td>开发实现</td><td>王五</td><td>2023-06-16</td><td>2023-07-15</td><td>未开始</td><td>0%</td></tr>
+                        <tr><td>5</td><td>测试验收</td><td>赵六</td><td>2023-07-16</td><td>2023-07-30</td><td>未开始</td><td>0%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
